@@ -1,6 +1,6 @@
 {
 	"name": "http-result",
-	"description": "This is a simple utility package",
+	"description": "Rust+Go like error handling in typescript, simple, extensible and tweakable.",
 	"author": "Abhay Raj Singh",
 	"license": "MIT",
 	"homepage": "https://github.com/rathod-sahaab/http-result",

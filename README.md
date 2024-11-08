@@ -1,14 +1,21 @@
 # http-result
 
-`http-result` is a Typescript library that provides type-safe error handling and result types inspired by patterns used in Rust and Go. It is designed to complement **ts-rest** by offering a consistent and type-safe way to handle both successful responses and errors in API calls or service methods.
+`http-result` is a Typescript library that provides type-safe error handling and result types inspired by patterns used in Rust and Go. It originally was designed to complement [**ts-rest**](https://ts-rest.com/) by offering a consistent and type-safe way to handle both successful responses and errors in API calls or service methods.
+
+But it can be used for any backend TS application to represent internal error.
 
 ---
 
 ## Features
 
 - **Type-safe error handling**: Guarantees correct error types through Typescript’s type system.
+- **No surprises**: Errors are not thrown, but are returned as normal values enabling lot more ways to handle errors and not be surprised.
 - **Result type pattern**: Emulates the result types from languages like Rust and Go, making error handling more predictable.
-- **Full integration with `ts-rest`**: Easy integration with the `ts-rest` library for RESTful service calls.
+- **Easy integration with frameworks**:
+  - [x] `ts-rest` library for RESTful service calls.
+  - [ ] express
+  - [ ] fastify
+  - [ ] koa
 
 ---
 
@@ -70,6 +77,11 @@ const [org, error] = await organisationService.createOrg({
  name: 'My Organization',
 })
 
+if (error.kind === 'NotFound') {
+ // special handling
+ return TsRestResponse.BadRequest('You made a mistake!')
+}
+
 if (error) {
  return tsRestError(error) // Return a structured error response
 }
@@ -82,8 +94,11 @@ return TsRestResponse.Created(org) // Return a successful response
 - The `createOrg` method returns a `Result` type with two possible outcomes:
   - **Success**: The result contains the created organization data (`Organisation`).
   - **Error**: The result contains an error, which can be either `'InternalServer'` or `'NotFound'`.
+
+Format response according to frameworks:
+
 - If an error occurs, it is handled and passed to `tsRestError()` for a structured error response.
-- If successful, the organization data is passed to `TsRestResponse.Ok()` to return a successful response.
+- If successful, the organization data is passed to `TsRestResponse.Created()` to return a successful response. Status code is mostly manual.
 
 ### Result Type
 
@@ -94,6 +109,18 @@ export type Result<
  T,
  ErrorUnion extends 'NotFound' | 'InternalServer' | '...',
 > = Success<T> | ErrType<ErrorUnion>
+```
+
+### ErrorPayload
+
+Error returned by the service has following structure.
+
+```typescript
+export type ErrPayload<S extends IHttpErrorKind> = {
+ status: IHttpErrorStatusSpecific<S>
+ kind: S
+ messages: string[]
+}
 ```
 
 Where:
@@ -114,10 +141,10 @@ async function getUserInfo(userId: ID) {
  const [user, error] = await getUserFromDatabase(userId)
 
  if (error) {
-  return tsRestError('User not found')
+  return tsRestError(error) // format into ts-rest error
  }
 
- return TsRestResponse.Ok(user)
+ return TsRestResponse.Created(user) // format into ts-rest response
 }
 ```
 
