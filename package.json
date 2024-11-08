@@ -1,5 +1,19 @@
 {
 	"name": "http-result",
+	"description": "This is a simple utility package",
+	"author": "Abhay Raj Singh",
+	"license": "MIT",
+	"homepage": "https://github.com/rathod-sahaab/http-result",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rathod-sahaab/http-result.git"
+	},
+	"bugs": {
+		"url": "https://github.com/rathod-sahaab/http-result/issues"
+	},
+	"keywords": [
+		"error-types"
+	],
 	"private": false,
 	"version": "0.1.0",
 	"type": "module",
