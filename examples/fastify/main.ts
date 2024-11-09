@@ -1,7 +1,7 @@
 import Fastify from 'fastify'
 import { initServer } from '@ts-rest/fastify'
 import { contract } from './contract'
-import { TsRestResponse } from 'http-result'
+import { TsRestResponse } from 'http-result/ts-rest'
 
 const app = Fastify()
 

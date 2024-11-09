@@ -18,8 +18,8 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0
       http-result:
-        specifier: ^0.2.2
-        version: 0.2.2
+        specifier: ^0.3.1
+        version: 0.3.1
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -120,8 +120,8 @@ packages:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
     engines: {node: '>= 0.6'}
 
-  http-result@0.2.2:
-    resolution: {integrity: sha512-hpdeJIgZO0L7zb8Cqc6FiG+Wb08M99F4RdWm0Jmw4e6HCHmg9ian8fsJGNTvdid2XTTqxtlZeZWVifV039kZLw==}
+  http-result@0.3.1:
+    resolution: {integrity: sha512-lrNeqI83wZXm9JtxCcMRfpwsalQes8uo5h2CGqaTCZZmTFu3pUOesh5T4K09g3peaL9jsIGH9HKaNOi9Rod/7g==}
 
   ipaddr.js@1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
@@ -319,7 +319,7 @@ snapshots:
 
   forwarded@0.2.0: {}
 
-  http-result@0.2.2: {}
+  http-result@0.3.1: {}
 
   ipaddr.js@1.9.1: {}
 
