@@ -1,7 +1,8 @@
 import Fastify from 'fastify'
 import { initServer } from '@ts-rest/fastify'
 import { contract } from './contract'
-import { TsRestResponse } from 'http-result/ts-rest'
+import { tsRestError, TsRestResponse } from 'http-result/ts-rest'
+import { serviceCreatePost } from './service'
 
 const app = Fastify()
 
@@ -14,9 +15,11 @@ const router = s.router(contract, {
 		return TsRestResponse.Ok(post)
 	},
 	createPost: async ({ body }) => {
-		const post = { article: 'Hello There' }
+		const [post, createPostError] = serviceCreatePost(body.content)
 
-		console.log(body)
+		if (createPostError) {
+			return tsRestError(createPostError)
+		}
 
 		return TsRestResponse.Created(post)
 	},
