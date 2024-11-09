@@ -12,7 +12,10 @@
 		"url": "https://github.com/rathod-sahaab/http-result/issues"
 	},
 	"keywords": [
-		"error-types"
+		"error-types",
+		"rust",
+		"golang",
+		"error-handling"
 	],
 	"private": false,
 	"version": "0.3.0",
