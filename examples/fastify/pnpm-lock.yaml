@@ -17,6 +17,9 @@ importers:
       fastify:
         specifier: ^5.1.0
         version: 5.1.0
+      http-result:
+        specifier: ^0.2.0
+        version: 0.2.0
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -116,6 +119,9 @@ packages:
   forwarded@0.2.0:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
     engines: {node: '>= 0.6'}
+
+  http-result@0.2.0:
+    resolution: {integrity: sha512-UXiVTQzVqnlOUKQg/ezfzT1bkCWZJjf+Q9ZPmWTZabAZOy7yJjz7mUGjcSHG878x58cU5jwyZelinFQLFrWWLg==}
 
   ipaddr.js@1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
@@ -312,6 +318,8 @@ snapshots:
       safe-regex2: 4.0.0
 
   forwarded@0.2.0: {}
+
+  http-result@0.2.0: {}
 
   ipaddr.js@1.9.1: {}
 
