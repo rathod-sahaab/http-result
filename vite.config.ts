@@ -9,9 +9,10 @@ import dts from 'vite-plugin-dts'
 export default defineConfig({
 	build: {
 		lib: {
-			entry: resolve(__dirname, 'src/index.ts'),
-			name: 'http-result',
-			fileName: 'http-result',
+			entry: {
+				index: resolve(__dirname, 'src/index.ts'),
+				'ts-rest': resolve(__dirname, 'src/ts-rest/index.ts'),
+			},
 		},
 	},
 	plugins: [dts()],
