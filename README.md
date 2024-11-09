@@ -6,6 +6,9 @@ But it can be used for any backend TS application to represent internal error.
 
 ![build and tests status badge](https://github.com/rathod-sahaab/http-result/actions/workflows/build-test.yaml/badge.svg)
 
+[npm/http-result](https://www.npmjs.com/package/http-result)
+[jsr/http-result](https://jsr.io/@rathod-sahaab/http-result)
+
 ---
 
 ## Features
