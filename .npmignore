@@ -1,6 +1,7 @@
 examples
 node_modules
 src
+.github
 
 .prettierrc
 tsconfig.json
