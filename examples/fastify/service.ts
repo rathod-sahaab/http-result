@@ -1,11 +1,12 @@
 import { HttpErrorResults, Ok, Result } from 'http-result'
+import { Err } from '../../dist/index'
 import { Post } from './contract'
 
 export function serviceCreatePost(
 	article: string,
 ): Result<Post, 'InternalServer' | 'BadRequest'> {
 	if (article.length < 10) {
-		return HttpErrorResults.BadRequest('Article too short')
+		return Err('BadRequest', 'Article too small')
 	}
 
 	if (article.length > 100) {

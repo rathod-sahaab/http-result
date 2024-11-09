@@ -44,7 +44,7 @@ The core idea of `http-result` is to handle method responses as a **Result** typ
 Here’s an example using `http-result` to handle errors in a method that creates an organization:
 
 ```typescript
-import { Result } from 'http-result'
+import { HttpErrorResults, Ok, Result } from 'http-result'
 
 class OrganisationService {
  async createOrg({
@@ -56,7 +56,8 @@ class OrganisationService {
  }): Promise<Result<Organisation, 'InternalServer' | 'NotFound'>> {
   // Simulate error handling
   if (!userId) {
-   return HttpErrorResults.NotFound('User does not exists')
+   return Err('BadRequest', 'Article too small')
+   // return HttpErrorResults.NotFound('User does not exists')
   }
 
   if (!name) {
@@ -69,7 +70,9 @@ class OrganisationService {
  }
 }
 
-// caller function, api request handler in this case
+// caller function, API request handler in this case
+import { tsRestError, TsRestResponse } from 'http-result/ts-rest'
+
 const organisationService = new OrganisationService()
 
 const [org, error] = await organisationService.createOrg({
