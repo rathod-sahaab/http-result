@@ -1,3 +1,7 @@
+/**
+ * @module Function to parse and pack into type goodies, makes life easier and code simpler.
+ */
+
 import { HTTP_ERRORS } from './http.constants'
 import { IHttpErrorKind } from './http.types'
 import { ErrPayload, ErrType, Result, Success } from './types'

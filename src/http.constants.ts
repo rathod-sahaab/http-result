@@ -1,3 +1,6 @@
+/**
+ * Http Success status code map/lookup table
+ */
 export const HTTP_SUCCESS = {
 	Continue: 100,
 	SwitchingProtocols: 101,
@@ -26,6 +29,9 @@ export const HTTP_SUCCESS = {
 	PermanentRedirect: 308,
 } as const
 
+/**
+ * Http Errors status code map/lookup table
+ */
 export const HTTP_ERRORS = {
 	BadRequest: 400,
 	Unauthorized: 401,
@@ -70,6 +76,9 @@ export const HTTP_ERRORS = {
 	NetworkAuthenticationRequired: 511,
 } as const
 
+/**
+ * All standard HTTP status code map
+ */
 export const HTTP = {
 	...HTTP_SUCCESS,
 	...HTTP_ERRORS,

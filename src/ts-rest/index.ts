@@ -1,3 +1,7 @@
+/**
+ * @module contains functions to return formatted responses.
+ */
+
 import {
 	HTTP,
 	HTTP_ERRORS,

@@ -1,6 +1,6 @@
 {
 	"name": "@rathod-sahaab/http-result",
-	"version": "0.5.1",
+	"version": "0.5.2",
 	"exports": {
 		".": "./src/index.ts"
 		"./ts-rest": "./src/ts-rest/index.ts"
