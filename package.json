@@ -18,7 +18,7 @@
 		"error-handling"
 	],
 	"private": false,
-	"version": "0.5.0",
+	"version": "0.5.1",
 	"type": "module",
 	"main": "./dist/http-result.umd.cjs",
 	"module": "./dist/http-result.js",
