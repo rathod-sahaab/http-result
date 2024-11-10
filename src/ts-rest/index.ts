@@ -25,6 +25,9 @@ export type ITsRestError<S extends IHttpErrorStatus> = {
 	}
 }
 
+/**
+ * Format http-result error type into a valid ts-rest response
+ */
 export function tsRestError<E extends IHttpErrorKind>(
 	err: ErrPayload<E>,
 ): ITsRestError<IHttpErrorStatusSpecific<E>> {
@@ -67,6 +70,11 @@ type ITsRestResponseFnsMap = {
 			: never
 }
 
+/**
+ * Format ouput into ts-rest reponse, define status code with function name.
+ * Error functions expect a message string, success response functions can
+ * anything.
+ */
 export const TsRestResponse: ITsRestResponseFnsMap = (
 	Object.keys(HTTP) as IHttpKind[]
 ).reduce<Partial<ITsRestResponseFnsMap>>((acc, curr) => {

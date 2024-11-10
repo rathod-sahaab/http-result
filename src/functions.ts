@@ -2,9 +2,24 @@ import { HTTP_ERRORS } from './http.constants'
 import { IHttpErrorKind } from './http.types'
 import { ErrPayload, ErrType, Result, Success } from './types'
 
+/**
+ * Helper function to easily create result success type from object
+ *
+ * ```ts
+ * return Ok({value: 5})
+ * ```
+ */
 export function Ok<T>(value: T): Success<T> {
 	return [value, null]
 }
+
+/**
+ * Helper function to easily create result error type from object
+ *
+ * ```ts
+ * return Err('BadRequest', 'Article Too long.')
+ * ```
+ */
 export function Err<E extends IHttpErrorKind>(
 	kind: E,
 	message: string,
@@ -56,6 +71,13 @@ type IHttpErrorResultFnsMap = {
 	) => Result<T, K>
 }
 
+/**
+ * Object containing formatter functions to get ErrPayload
+ *
+ * Each function has:
+ * @param message Message describing error
+ * @param baseError? Optional: Underlying error that made you create a new error, for something like a stack trace
+ */
 export const HttpErrors: IHttpErrorFnsMap = (
 	Object.keys(HTTP_ERRORS) as IHttpErrorKind[]
 ).reduce<Partial<IHttpErrorFnsMap>>((acc, curr) => {
@@ -65,6 +87,14 @@ export const HttpErrors: IHttpErrorFnsMap = (
 	}
 }, {}) as IHttpErrorFnsMap
 
+/**
+ * Same as HttpErrors but for creating result type directly
+ * Object containing formatter functions to get Result
+ *
+ * Each function has:
+ * @param message Message describing error
+ * @param baseError? Optional: Underlying error that made you create a new error, for something like a stack trace
+ */
 export const HttpErrorResults: IHttpErrorResultFnsMap = (
 	Object.keys(HTTP_ERRORS) as IHttpErrorKind[]
 ).reduce<Partial<IHttpErrorResultFnsMap>>((acc, curr) => {

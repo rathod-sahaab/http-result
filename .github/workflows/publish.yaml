@@ -1,7 +1,8 @@
-name: Build and Test
+name: Publish JSR
+
 on:
   push:
-    branches-ignore:
+    branches:
       - main
 
 jobs:
@@ -27,3 +28,14 @@ jobs:
         run: pnpm run build
       - name: Test
         run: pnpm run test
+
+  publish:
+    runs-on: ubuntu-latest
+    environment: Production
+    needs: build
+    permissions:
+      contents: read
+      id-token: write # The OIDC ID token is used for authentication with JSR.
+    steps:
+      - uses: actions/checkout@v4
+      - run: npx jsr publish
