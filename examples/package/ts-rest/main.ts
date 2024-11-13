@@ -12,7 +12,7 @@ const router = s.router(contract, {
 	getPost: async ({ params: { id } }) => {
 		const post = { article: `Hello There ${id}` }
 
-		return TsRestResponse.Ok(post)
+		return TsRestResponse.OK(post)
 	},
 	createPost: async ({ body }) => {
 		const [post, createPostError] = serviceCreatePost(body.content)
@@ -23,7 +23,7 @@ const router = s.router(contract, {
 		}
 
 		switch (createPostError.kind) {
-			case 'InternalServer':
+			case 'InternalServerError':
 				return TsRestResponse.BadRequest('My bad but your bad')
 			default:
 				return tsRestError(createPostError)
