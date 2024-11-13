@@ -24,10 +24,10 @@ export function Ok<T>(value: T): Success<T> {
  * return Err('BadRequest', 'Article Too long.')
  * ```
  */
-export function Err<E extends IHttpErrorKind>(
+export function Err<T extends any, E extends IHttpErrorKind>(
 	kind: E,
 	message: string,
-): ErrType<E> {
+): Result<T, E> {
 	return [
 		null,
 		{
@@ -35,17 +35,18 @@ export function Err<E extends IHttpErrorKind>(
 			kind,
 			messages: [message],
 		},
-	]
+	] as Result<T, E>
 }
 
 const errorFactory = <K extends IHttpErrorKind, A extends IHttpErrorKind>(
 	kind: K,
 ): ((message: string, baseError: ErrPayload<A>) => ErrPayload<K>) => {
-	return (message: string, baseError?: ErrPayload<A>) => ({
-		status: HTTP_ERRORS[kind],
-		kind: kind,
-		messages: baseError ? [...baseError.messages, message] : [message],
-	})
+	return (message: string, baseError?: ErrPayload<A>) =>
+		({
+			status: HTTP_ERRORS[kind],
+			kind: kind,
+			messages: baseError ? [...baseError.messages, message] : [message],
+		}) as ErrPayload<K>
 }
 
 const errorResultFactory = <
@@ -55,10 +56,9 @@ const errorResultFactory = <
 >(
 	errorMaker: (message: string, baseError?: ErrPayload<A>) => ErrPayload<E>,
 ): ((message: string, baseError?: ErrPayload<A>) => Result<T, E>) => {
-	return (message: string, baseError?: ErrPayload<A>) => [
-		null,
-		errorMaker(message, baseError),
-	]
+	return (message: string, baseError?: ErrPayload<A>): Result<T, E> => {
+		return [null, errorMaker(message, baseError)] as Result<T, E>
+	}
 }
 
 type IHttpErrorFnsMap = {
