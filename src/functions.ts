@@ -4,7 +4,7 @@
 
 import { HTTP_ERRORS } from './http.constants'
 import { IHttpErrorKind } from './http.types'
-import { ErrPayload, ErrType, Result, Success } from './types'
+import { ErrPayload, Result, Success } from './types'
 
 /**
  * Helper function to easily create result success type from object
