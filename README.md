@@ -23,6 +23,16 @@ But it can be used for any backend TS application to represent internal error.
 
 ---
 
+## Optimised
+
+- [x] Tree shakeable
+- [x] No dependencies
+- [x] Small size
+
+![bundle phobia optimised](./docs/images/bundlephobia-0.5.4.jpg)
+
+---
+
 ## Installation
 
 Install the `http-result` package via npm or yarn:
