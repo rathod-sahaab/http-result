@@ -53,9 +53,11 @@ yarn add http-result
 
 The core idea of `http-result` is to handle method responses as a **Result** type, which can either be a successful result with data or an error. This avoids unhandled errors and allows for more precise control over how errors are processed.
 
-### Example: `createOrg`
+### Example
 
 Here’s an example using `http-result` to handle errors in a method that creates an organization:
+
+**Internal Service code**
 
 ```typescript
 import { HttpErrorResults, Ok, Result } from 'http-result'
@@ -70,20 +72,38 @@ class OrganisationService {
  }): Promise<Result<Organisation, 'InternalServer' | 'NotFound'>> {
   // Simulate error handling
   if (!userId) {
-   return Err('BadRequest', 'Article too small')
-   // return HttpErrorResults.NotFound('User does not exists')
+   return Err('NotFound', 'User does not exist')
+   // You can also use
+   // return HttpErrorResults.NotFound('User does not exist')
   }
 
-  if (!name) {
-   return HttpErrorResults.InternalServer('User does not exists')
+  if (name === 'Rick Astley') {
+   return HttpErrorResults.InternalServerError('Server got rick rolled')
+  }
+
+  // error can be BadRequest | NotFound
+  const [letter, letterError] = await this.letterService.sendLetter(name)
+
+  if (letterError) {
+   // repackage, preserves message from letterError in messages array
+   // send better more relevant errors to users even if generic code fails.
+   return HttpErrorResults.InternalServerError(
+    'Failed to send letter',
+    letterError,
+   )
   }
 
   // Simulate successful organization creation
   const org = { id: '123', name }
-  Ok(org)
+
+  return Ok(org)
  }
 }
+```
 
+**API Gateway/Handler code**
+
+```typescript
 // caller function, API request handler in this case
 import { tsRestError, TsRestResponse } from 'http-result/ts-rest'
 
@@ -95,11 +115,12 @@ const [org, error] = await organisationService.createOrg({
 })
 
 if (error.kind === 'NotFound') {
- // special handling
+ // special handling, repackage the error to hid original
  return TsRestResponse.BadRequest('You made a mistake!')
 }
 
 if (error) {
+ // forwar
  return tsRestError(error) // Return a structured error response
 }
 

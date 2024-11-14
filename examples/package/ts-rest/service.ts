@@ -1,10 +1,10 @@
-import { HttpErrorResults, Ok, Result } from 'http-result'
-import { Err } from '../../../dist/index'
+import { HttpErrorResults, Ok, Result, Err } from 'http-result'
 import { Post } from './contract'
+import { createIndex } from './sub-service'
 
-export function serviceCreatePost(
+export async function serviceCreatePost(
 	article: string,
-): Result<Post, 'InternalServerError' | 'BadRequest'> {
+): Promise<Result<Post, 'InternalServerError' | 'BadRequest'>> {
 	if (article.length < 10) {
 		return Err('BadRequest', 'Article too small')
 	}
@@ -12,6 +12,17 @@ export function serviceCreatePost(
 	if (article.length > 100) {
 		return HttpErrorResults.InternalServerError('Error storing in DB')
 	}
+
+	const [index, indexError] = await createIndex(article)
+
+	if (indexError) {
+		return HttpErrorResults.InternalServerError(
+			'Index Creation failed',
+			indexError,
+		)
+	}
+
+	console.log(index)
 
 	return Ok({ article })
 }

@@ -15,7 +15,7 @@ const router = s.router(contract, {
 		return TsRestResponse.OK(post)
 	},
 	createPost: async ({ body }) => {
-		const [post, createPostError] = serviceCreatePost(body.content)
+		const [post, createPostError] = await serviceCreatePost(body.content)
 
 		// if (!createPostError) {
 		if (post) {
