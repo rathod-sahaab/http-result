@@ -6,3 +6,4 @@ src
 .prettierrc
 tsconfig.json
 vite.config.ts
+jsr.json
